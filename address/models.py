@@ -241,8 +241,8 @@ class Address(models.Model):
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE, related_name='addresses', blank=True, null=True)
     raw = models.CharField(max_length=200)
     formatted = models.CharField(max_length=200, blank=True)
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -270,6 +270,10 @@ class Address(models.Model):
     def clean(self):
         if not self.raw:
             raise ValidationError('Addresses may not have a blank `raw` field.')
+        if not self.latitude:
+            raise ValidationError('Addresses may not have a blank `latitude` field.')
+        if not self.longitude:
+            raise ValidationError('Addresses may not have a blank `longitude` field.')
 
     def as_dict(self):
         ad = dict(
