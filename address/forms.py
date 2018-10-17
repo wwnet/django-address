@@ -48,6 +48,10 @@ class AddressField(forms.ModelChoiceField):
                             params={'field': field}
                         )
                 else:
-                    value[field] = None
+                    raise forms.ValidationError(
+                       '%(field)s not found for this address',
+                        code='invalid',
+                        params={'field': field}
+                    )
 
         return to_python(value)
