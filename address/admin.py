@@ -33,4 +33,5 @@ class LocalityAdmin(admin.ModelAdmin):
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    list_display = ('__str__', 'latitude', 'longitude')
     list_filter = (UnidentifiedListFilter,)
