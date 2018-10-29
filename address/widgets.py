@@ -16,6 +16,7 @@ JQUERY_URL = getattr(settings, 'JQUERY_URL', 'https://ajax.googleapis.com/ajax/l
 
 
 class AddressWidget(forms.TextInput):
+    template_name = "address/widgets/address_widget.html"
     components = [('country', 'country'), ('country_code', 'country_short'),
                   ('locality', 'locality'), ('sublocality', 'sublocality'),
                   ('postal_code', 'postal_code'), ('route', 'route'),
@@ -27,6 +28,10 @@ class AddressWidget(forms.TextInput):
 
     class Media:
         """Media defined as a dynamic property instead of an inner class."""
+        css = {
+            'all': ('address/css/address.css', )
+        }
+
         js = [
             'https://maps.googleapis.com/maps/api/js?libraries=places&key=%s' % settings.GOOGLE_API_KEY,
             'js/jquery.geocomplete.min.js',
@@ -78,10 +83,13 @@ class AddressWidget(forms.TextInput):
         # Now add the hidden fields.
         elems.append('<div id="%s_components">' % name)
         for com in self.components:
-            elems.append('<input type="hidden" name="%s_%s" data-geo="%s" value="%s" />' % (
+            # elems.append('<input type="hidden" name="%s_%s" data-geo="%s" value="%s" />' % (
+            elems.append('<input  name="%s_%s" data-geo="%s" value="%s" />' % (
                 name, com[0], com[1], ad.get(com[0], ''))
             )
         elems.append('</div>')
+        elems.append('<div class="address-map-wrapper">'
+                     '<div id="address-map""></div></div>')
 
         return mark_safe(unicode('\n'.join(elems)))
 

@@ -5,7 +5,15 @@ $(function () {
 		var fmtd = $('input[name="' + self.attr('name') + '_formatted"]');
 		self.geocomplete({
 			details: cmps,
-			detailsAttribute: 'data-geo'
+			detailsAttribute: 'data-geo',
+			map: "#address-map",
+			mapOptions: {
+	    	zoom: 10
+	  	},
+			location: document.getElementsByName(self.attr('name') + '_latitude')[0].value + ',' + document.getElementsByName(self.attr('name') + '_longitude')[0].value,
+	  	markerOptions: {
+	    	draggable: true
+	  	}
 		}).change(function () {
 			if (self.val() != fmtd.val()) {
 				var cmp_names = [
@@ -26,6 +34,10 @@ $(function () {
 					$('input[name="' + self.attr('name') + '_' + cmp_names[ii] + '"]').val('');
 				}
 			}
-		});
+		}).bind("geocode:dragged", function(event, latLng) {
+				$("input[name=" + self.attr('name') + "_latitude]").val(latLng.lat());
+				$("input[name=" + self.attr('name') + "_longitude]").val(latLng.lng());
+				// self.trigger("geocode");
+    });
 	});
 });

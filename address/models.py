@@ -49,8 +49,8 @@ def _to_python(value):
         locality = sublocality
 
     # If we have an inconsistent set of value bail out now.
-    if (country or state or locality) and not (country and state and locality):
-        raise InconsistentDictError
+    # if (country or state or locality) and not (country and state and locality):
+    #     raise InconsistentDictError
 
     # Handle the country.
     try:
