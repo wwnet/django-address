@@ -16,7 +16,6 @@ JQUERY_URL = getattr(settings, 'JQUERY_URL', 'https://ajax.googleapis.com/ajax/l
 
 
 class AddressWidget(forms.TextInput):
-    # template_name = "address/widgets/address_widget.html"
     components = [('country', 'country'), ('country_code', 'country_short'),
                   ('locality', 'locality'), ('sublocality', 'sublocality'),
                   ('postal_code', 'postal_code'), ('route', 'route'),
