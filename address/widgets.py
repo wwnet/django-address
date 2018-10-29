@@ -59,6 +59,7 @@ class AddressWidget(forms.TextInput):
         classes += (' ' if classes else '') + 'address'
         attrs['class'] = classes
         kwargs['attrs'] = attrs
+        kwargs['attrs']['size'] = kwargs['attrs'].get('size', 77)
         super(AddressWidget, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, **kwargs):
@@ -82,13 +83,13 @@ class AddressWidget(forms.TextInput):
         # Now add the hidden fields.
         elems.append('<div id="%s_components">' % name)
         for com in self.components:
-            # elems.append('<input type="hidden" name="%s_%s" data-geo="%s" value="%s" />' % (
-            elems.append('<input  name="%s_%s" data-geo="%s" value="%s" />' % (
+            elems.append('<input type="hidden" name="%s_%s" data-geo="%s" value="%s" />' % (
+            # elems.append('<input  name="%s_%s" data-geo="%s" value="%s" />' % (
                 name, com[0], com[1], ad.get(com[0], ''))
             )
         elems.append('</div>')
-        elems.append('<div class="address-map-wrapper">'
-                     '<div id="address-map""></div></div>')
+        # elems.append('<div class="address-map-wrapper">'
+        #              '<div id="address-map""></div></div>')
 
         return mark_safe(unicode('\n'.join(elems)))
 

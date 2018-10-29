@@ -10,6 +10,7 @@ $(function () {
 			mapOptions: {
 	    	zoom: 10
 	  	},
+			// types: ['bar', 'cafe', 'liquor_store', 'meal_delivery', 'meal_takeaway', 'restaurant', 'shopping_mall', 'supermarket', 'store'],
 			location: document.getElementsByName(self.attr('name') + '_latitude')[0].value + ',' + document.getElementsByName(self.attr('name') + '_longitude')[0].value,
 	  	markerOptions: {
 	    	draggable: true
